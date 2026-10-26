@@ -4,7 +4,7 @@
 
 A clickable prototype built for the [mObywatel Challenge at mobywatel.ai](https://mobywatel.ai/). It covers family and administrative tasks: children's documents, pet care, replying to a letter, and getting help from a trusted person.
 
-The app sits inside a phone frame. A panel beside it describes the current screen and available actions. The interface and screen descriptions are in Polish.
+The app sits inside a phone frame. A panel beside it describes the current screen and available actions. The interface and screen descriptions are available in Polish and English. Use PL / EN above the phone to switch without losing progress. The browser remembers your language choice.
 
 This is an independent concept. All people, documents, and actions are fictional. It is not the official mObywatel app, a government service, or a project of the challenge organizer. Do not enter real personal data. Scenario content is not legal advice.
 
@@ -49,6 +49,8 @@ Open `Więcej → Sterowanie demonstracją` (More → Demo controls) to change r
 The panel also lets you set a failed or uncertain operation result, make an appointment unavailable, or simulate a microchip conflict. Reset restores the starting data for every role.
 
 Sending a letter, confirming delivery, and closing a case are separate stages. Trigger the corresponding event in the panel to move to the next stage. Birth confirmation and passport readiness work the same way.
+
+The `Restore demo` button above the phone is available on every screen, with another reset control in the assistant and dialog headers. After confirmation, it restores the starting data, Marta's profile and the demo clock, clears drafts and operation results, and returns to Home. Cancelling keeps your progress. Reset does not change your language choice.
 
 ## Saved data
 

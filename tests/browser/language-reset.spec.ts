@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+﻿import { test, expect, type Page } from "@playwright/test";
 const KEY = "mobywatel-concept:world:v1";
 const state = (page: Page) =>
   page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), KEY);
@@ -32,7 +32,7 @@ test("English screens, translated dates, labels and persisted language", async (
     ).toBeVisible();
   }
   await page.goto("./");
-  await expect(page.locator("#app-shell")).toContainText("OCTOBER");
+  await expect(page.locator("#app-shell")).toContainText("October");
   await expect(page.locator("#app-shell")).not.toContainText("W przygotowaniu");
   await page.reload();
   await expect(

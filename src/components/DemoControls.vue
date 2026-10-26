@@ -115,7 +115,7 @@ function resend(rid: string) {
       </div>
     </section>
     <section class="panel section-pad">
-      <h2>Otwórz przepływ</h2>
+      <h2>Otwórz demonstrację</h2>
       <label class="field"
         >Scenariusz<select v-model="flow">
           <option v-for="fid in flowIds" :key="fid" :value="fid">

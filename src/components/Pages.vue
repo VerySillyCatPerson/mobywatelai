@@ -457,7 +457,7 @@ function reportAction(rid: string, missing: boolean) {
           class="button secondary"
           @click="
             info =
-              'Ta funkcja nie jest częścią ośmiu przepływów. Nie uruchamiamy skanera.'
+              'Ta funkcja nie jest częścią ośmiu demonstracji. Nie uruchamiamy skanera.'
           "
         >
           Potwierdź dane</button
@@ -1001,7 +1001,7 @@ function reportAction(rid: string, missing: boolean) {
         ><span class="tile-icon"><Icon name="plus" /></span
         ><span class="row-main"
           ><strong>Wszystkie sprawy</strong
-          ><small>Osiem przepływów i zawieszka QR</small></span
+          ><small>Osiem demonstracji i zawieszka QR</small></span
         ><Icon name="chevron" /></RouterLink
       ><RouterLink to="/trusted" class="list-row"
         ><span class="tile-icon lilac"><Icon name="users" /></span

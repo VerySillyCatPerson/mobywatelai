@@ -34,7 +34,13 @@ const phrases = new RegExp(
     ")(?![\\p{L}\\p{N}])",
   "gu",
 );
+const RAW = Symbol("verbatim");
+export function verbatim(value: unknown) {
+  return { [RAW]: true, value: String(value ?? "") };
+}
 export function t(value: unknown): string {
+  if (typeof value === "object" && value !== null && RAW in value)
+    return (value as ReturnType<typeof verbatim>).value;
   if (value === null || value === undefined) return "";
   const text = String(value);
   if (language.value === "pl") return text;
@@ -45,7 +51,9 @@ export function t(value: unknown): string {
       catalog[key]! +
       (text.match(/\s*$/)?.[0] || "")
     );
-  return text.replace(phrases, (key) => catalog[key] || key);
+  return text
+    .replace(/^Krok (\d+) z (\d+)$/, "Step $1 of $2")
+    .replace(phrases, (key) => catalog[key] || key);
 }
 export function initLanguage() {
   watch(

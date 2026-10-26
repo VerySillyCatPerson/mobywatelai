@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dateLocale, t } from "../i18n";
+import { dateLocale, t, verbatim } from "../i18n";
 import { computed, ref, watch, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import type {
@@ -102,7 +102,7 @@ const summary = computed(() => {
     role.value === "piotr" && consent.value
       ? consent.value.snapshot
       : c.value.draftData;
-  const pairs: { label: string; value: string }[] = [];
+  const pairs: { label: string; value: string; raw?: boolean }[] = [];
   const labels: Record<string, string> = {
     childId: "Dziecko",
     documentId: "Dokument",
@@ -155,6 +155,7 @@ const summary = computed(() => {
             : String(value));
     pairs.push({
       label,
+      raw: ["responseText", "helperNote"].includes(key),
       value: Array.isArray(data[key])
         ? data[key].map(format).join(", ")
         : format(data[key]),
@@ -537,7 +538,7 @@ defineExpose({ fields, change, act, validate });
             v-if="c.flowId === 'F05' && c.draftData.responseText"
             class="preserve"
           >
-            {{ c.draftData.responseText }}
+            {{ verbatim(c.draftData.responseText) }}
           </p>
           <p v-if="c.flowId === 'F08'">
             {{
@@ -659,7 +660,7 @@ defineExpose({ fields, change, act, validate });
           <dl>
             <div v-for="row in summary" :key="row.label">
               <dt>{{ row.label }}</dt>
-              <dd>{{ row.value }}</dd>
+              <dd>{{ row.raw ? verbatim(row.value) : row.value }}</dd>
             </div>
           </dl>
           <template v-if="c.flowId === 'F06'"
@@ -963,7 +964,7 @@ defineExpose({ fields, change, act, validate });
       <div>
         <h3>Propozycja {{ roles[proposal.authorId] }}</h3>
         <p v-for="(value, key) in proposal.data" :key="key" class="preserve">
-          {{ value }}
+          {{ verbatim(value) }}
         </p>
       </div>
     </div>

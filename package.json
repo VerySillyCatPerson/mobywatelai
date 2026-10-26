@@ -10,7 +10,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:all": "npm run build && npm test && npm run test:e2e",
-    "format": "prettier --write src tests hosting *.ts index.html"
+    "format": "prettier --write src tests hosting build *.ts index.html"
   },
   "dependencies": {
     "lucide-vue-next": "^0.468.0",

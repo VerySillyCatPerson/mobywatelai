@@ -4,7 +4,7 @@ Polski | [English](README.en.md)
 
 Klikalny prototyp przygotowany na [mObywatel Challenge organizowany na mobywatel.ai](https://mobywatel.ai/). Pokazuje sprawy rodzinne i urzędowe: dokumenty dzieci, opiekę nad zwierzętami, odpowiedź na pismo i pomoc bliskiej osoby.
 
-Aplikacja działa w ramce telefonu. Panel obok opisuje aktualny ekran i dostępne działania. Interfejs i opisy są po polsku.
+Aplikacja działa w ramce telefonu. Panel obok opisuje aktualny ekran i dostępne działania. Interfejs i opisy są dostępne po polsku i po angielsku. Przełącznik PL / EN nad telefonem zmienia język bez utraty postępu. Wybór języka zapisuje się w przeglądarce.
 
 To niezależna koncepcja. Wszystkie osoby, dokumenty i działania są fikcyjne. Projekt nie jest oficjalną aplikacją mObywatel, usługą administracji ani projektem organizatora konkursu. Nie wpisuj prawdziwych danych osobowych. Treści scenariuszy nie są instrukcjami prawnymi.
 
@@ -49,6 +49,8 @@ Wybierz `Więcej → Sterowanie demonstracją`, aby zmienić rolę, przesunąć 
 Panel pozwala też ustawić błąd lub niepewny wynik następnej operacji, zająć termin wizyty i zasymulować konflikt numeru chipa. Reset przywraca dane początkowe wszystkich ról.
 
 Wysłanie pisma, doręczenie i zakończenie sprawy to osobne etapy. Aby pokazać kolejny etap, wywołaj odpowiednie zdarzenie w panelu. Tak samo działają potwierdzenie narodzin i gotowość paszportu do odbioru.
+
+Przycisk `Przywróć demo` nad telefonem jest dostępny na każdym ekranie. Znajdziesz go także w nagłówku asystenta i okien dialogowych. Po potwierdzeniu przywraca początkowe dane, profil Marty i zegar demonstracji, usuwa szkice oraz wyniki operacji i wraca do Startu. Anulowanie zachowuje postęp. Reset nie zmienia wybranego języka.
 
 ## Zapis danych
 

@@ -1,5 +1,5 @@
-import { parse } from "@vue/compiler-sfc";
-import { baseParse } from "@vue/compiler-dom";
+﻿import { parse } from "@vue/compiler-sfc";
+import { parse as parseTemplate } from "@vue/compiler-dom";
 import type { Plugin } from "vite";
 
 // Translate presentation text at compile time; model values, keys and handlers stay intact.
@@ -12,7 +12,7 @@ export function templateI18n(): Plugin {
       if (!id.endsWith(".vue")) return;
       const template = parse(source).descriptor.template;
       if (!template) return;
-      const ast = baseParse(template.content),
+      const ast = parseTemplate(template.content),
         edits: { start: number; end: number; text: string }[] = [];
       const translated = (value: string) => `$t(${value})`;
       function visit(node: any) {
