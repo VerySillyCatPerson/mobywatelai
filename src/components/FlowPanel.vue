@@ -1,4 +1,5 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
+import { dateLocale, t } from "../i18n";
 import { computed, ref, watch, nextTick } from "vue";
 import { useRouter } from "vue-router";
 import type {
@@ -205,7 +206,7 @@ function permissionLabel(value: string) {
   return permissionLabels.find((p) => p.value === value)?.label || value;
 }
 function date(value: string, time = false) {
-  return new Intl.DateTimeFormat("pl-PL", {
+  return new Intl.DateTimeFormat(dateLocale.value, {
     dateStyle: "long",
     ...(time ? { timeStyle: "short" as const } : {}),
     timeZone: "Europe/Warsaw",

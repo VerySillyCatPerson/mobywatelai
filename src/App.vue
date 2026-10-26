@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { computed, watch, ref, nextTick } from "vue";
+import {
+  computed,
+  watch,
+  ref,
+  nextTick,
+  onMounted,
+  onBeforeUnmount,
+} from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useDemo } from "./stores/demo";
 import { actionNames, canRead } from "./domain/engine";
@@ -8,10 +15,18 @@ import Icon from "./components/Icon.vue";
 import Assistant from "./components/Assistant.vue";
 import Modal from "./components/Modal.vue";
 import PresentationOverview from "./components/PresentationOverview.vue";
+import DemoToolbar from "./components/DemoToolbar.vue";
 const s = useDemo(),
   route = useRoute(),
   router = useRouter(),
   confirmReset = ref(false);
+function requestRestore() {
+  confirmReset.value = true;
+}
+onMounted(() => window.addEventListener("demo:restore", requestRestore));
+onBeforeUnmount(() =>
+  window.removeEventListener("demo:restore", requestRestore),
+);
 watch(
   () => route.fullPath,
   async () => {
@@ -50,6 +65,7 @@ const canShow = computed(
 </script>
 <template>
   <div class="presentation-layout">
+    <DemoToolbar @restore="requestRestore" />
     <section class="phone-column" aria-label="Interaktywny podgląd aplikacji">
       <div class="phone-caption">
         <span class="phone-caption-dot"></span>PODGLĄD APLIKACJI

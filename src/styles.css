@@ -3248,3 +3248,112 @@ body {
 .overview-section-label {
   color: #536176;
 }
+
+/* Presenter controls stay available independently of app navigation. */
+.demo-toolbar {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: -48px;
+  min-height: 44px;
+  position: sticky;
+  top: 8px;
+  z-index: 140;
+  background: #edf0f4f5;
+  padding: 4px 0;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+.demo-toolbar-label {
+  margin-right: auto;
+  font-size: 0.75rem;
+  color: #536176;
+  font-weight: 600;
+}
+.language-picker {
+  display: flex;
+  border: 1px solid #c4cfdd;
+  border-radius: 8px;
+  padding: 2px;
+  background: #f8fafc;
+}
+.language-picker button {
+  min-height: 40px;
+  min-width: 42px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: #536176;
+}
+.language-picker button[aria-pressed="true"] {
+  color: #174ea6;
+  background: #deebff;
+}
+.restore-demo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 8px 14px;
+  border: 1px solid #b8c8dc;
+  border-radius: 8px;
+  background: #fff;
+  color: #284f83;
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+.restore-demo:hover {
+  background: #eaf2ff;
+}
+.modal-header h2 {
+  margin-right: auto;
+}
+.modal-reset {
+  margin-left: auto;
+}
+.assistant-header .overlay-reset {
+  order: 2;
+  margin-left: auto;
+}
+.assistant-header .overlay-reset ~ .icon-button {
+  order: 3;
+  margin-left: 0;
+}
+.demo-toolbar + .phone-column {
+  padding-top: 44px;
+}
+.presentation-overview {
+  padding-top: 80px;
+}
+.assistant-header {
+  gap: 8px;
+}
+.assistant-header > .assistant-spark {
+  flex-shrink: 0;
+}
+@media (max-width: 800px) {
+  .demo-toolbar {
+    margin-bottom: -32px;
+  }
+  .demo-toolbar + .phone-column {
+    padding-top: 32px;
+  }
+  .presentation-overview {
+    padding-top: 0;
+  }
+  .demo-toolbar-label {
+    font-size: 0.6875rem;
+  }
+}
+@media (max-width: 380px) {
+  .demo-toolbar-label {
+    display: none;
+  }
+  .demo-toolbar {
+    justify-content: space-between;
+    padding-inline: 8px;
+  }
+}

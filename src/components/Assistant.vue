@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { t } from "../i18n";
 import {
   computed,
   ref,
@@ -70,6 +71,32 @@ const aliases: Record<FlowId, string[]> = {
   ],
   Q01: ["zarzadzaj zawieszka qr", "aktywuj qr luny", "wylacz zawieszke"],
 };
+const englishAliases: Record<FlowId, string[]> = {
+  F01: [
+    "report a lost child document",
+    "zosia lost her passport",
+    "lost passport",
+    "lost school card",
+  ],
+  F02: ["new passport for zosia", "passport for a child", "prepare a passport"],
+  F03: [
+    "register microchip",
+    "register luna s microchip",
+    "microchip registration",
+  ],
+  F04: [
+    "luna is missing",
+    "missing cat",
+    "report missing pet",
+    "has luna been found",
+    "luna returned home",
+  ],
+  F05: ["explain the letter", "reply to a letter", "prepare a response"],
+  F06: ["add a trusted person", "share a case", "revoke access"],
+  F07: ["register a birth", "birth registration", "i have had a baby"],
+  F08: ["a loved one has died", "bereavement", "prepare a visit after a death"],
+  Q01: ["manage qr tag", "activate qr tag", "disable qr tag"],
+};
 const normalize = (v: string) =>
   v
     .toLocaleLowerCase("pl")
@@ -112,26 +139,37 @@ async function send() {
   responding.value = false;
   if (turnEpoch !== s.world.epoch || !s.assistant) return;
   const q = normalize(raw);
-  if (q.includes("konto jana")) {
+  if (q.includes("konto jana") || q.includes("jan s account")) {
     reply.value = "Ten plan nie daje dostępu do konta osoby zmarłej";
     return;
   }
-  if (/\bnie (chce|zgubilam|zgubilem|zaginela)\b/.test(q)) {
+  if (
+    /\b(?:nie (?:chce|zgubilam|zgubilem|zaginela)|do not|don t|did not|didn t|not missing|not lost)\b/.test(
+      q,
+    )
+  ) {
     reply.value =
       "Nie uruchamiam działania. Wybierz dostępną sprawę albo zachowaj przygotowanie.";
     return;
   }
-  if (q === "anuluj") {
+  if (["anuluj", "cancel"].includes(q)) {
     reply.value =
       "Możesz wybrać „Zapisz i wyjdź”, „Porzuć szkic” albo kontynuować bieżący krok.";
     return;
   }
-  if (["kontynuuj sprawe", "wroc do sprawy"].includes(q)) {
+  if (
+    [
+      "kontynuuj sprawe",
+      "wroc do sprawy",
+      "continue case",
+      "resume case",
+    ].includes(q)
+  ) {
     reply.value = "Wybierz sprawę z listy poniżej.";
     return;
   }
   const matches = flowIds.filter((fid) =>
-    aliases[fid].some((a) => q.includes(a)),
+    [...aliases[fid], ...englishAliases[fid]].some((a) => q.includes(a)),
   );
   if (matches.length > 1) {
     choices.value = matches;
@@ -153,7 +191,10 @@ async function send() {
       (f.options || []).map((o) => ({ field: f, opt: o })),
     );
     const match = options.filter(
-      (o) => normalize(o.opt.label) === q || normalize(o.opt.value) === q,
+      (o) =>
+        normalize(o.opt.label) === q ||
+        normalize(t(o.opt.label)) === q ||
+        normalize(o.opt.value) === q,
     );
     if (match.length === 1) {
       const { field, opt } = match[0]!;
@@ -179,7 +220,7 @@ async function send() {
       reply.value = "Odpowiedź zapisana w bieżącym polu.";
       return;
     }
-    if (q === "dalej") {
+    if (["dalej", "next"].includes(q)) {
       const action = n?.actions.find((a) => a.next && a.kind !== "secondary");
       if (action) {
         flowPanel.value?.act(action);
@@ -187,7 +228,7 @@ async function send() {
         return;
       }
     }
-    if (["popraw", "wstecz"].includes(q)) {
+    if (["popraw", "wstecz", "edit", "back"].includes(q)) {
       reply.value =
         "Użyj „Wróć i popraw” przy bieżącym kroku. Wszystkie zapisane wartości pozostają w formularzu.";
       return;
@@ -197,6 +238,9 @@ async function send() {
   }
   reply.value =
     "Tego pytania nie obsługuje demonstracja. Wybierz dostępną sprawę";
+}
+function requestRestore() {
+  window.dispatchEvent(new Event("demo:restore"));
 }
 function key(e: KeyboardEvent) {
   if (e.key === "Escape" && !s.confirmation) {
@@ -270,6 +314,14 @@ onBeforeUnmount(() => {
         tabindex="-1"
       >
         <header class="assistant-header">
+          <button
+            class="icon-button overlay-reset"
+            aria-label="Przywróć demo"
+            title="Przywróć demo"
+            @click="requestRestore"
+          >
+            <Icon name="reset" :size="18" />
+          </button>
           <span class="assistant-spark small"
             ><Icon name="assistant" /><i>✦</i></span
           >

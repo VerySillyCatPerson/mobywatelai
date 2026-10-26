@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, nextTick } from "vue";
+import { onMounted, onBeforeUnmount, onUnmounted, ref, nextTick } from "vue";
 import Icon from "./Icon.vue";
 const props = defineProps<{
   title: string;
@@ -10,6 +10,9 @@ const emit = defineEmits<{ close: [] }>();
 const panel = ref<HTMLElement>();
 let previous: HTMLElement | null = null;
 let backgrounds: { element: HTMLElement; wasInert: boolean }[] = [];
+function requestRestore() {
+  window.dispatchEvent(new Event("demo:restore"));
+}
 function key(e: KeyboardEvent) {
   if (e.key === "Escape" && !props.locked) {
     e.preventDefault();
@@ -60,6 +63,17 @@ onBeforeUnmount(() => {
     document.querySelector(".assistant-backdrop") ? "hidden" : "";
   previous?.isConnected && previous.focus();
 });
+onUnmounted(() => {
+  nextTick(() => {
+    const shell = document.getElementById("app-shell");
+    if (shell) {
+      shell.inert = !!document.querySelector(
+        "#phone-overlays .modal-backdrop, #phone-overlays .assistant-backdrop",
+      );
+      shell.style.overflow = shell.inert ? "hidden" : "";
+    }
+  });
+});
 </script>
 <template>
   <Teleport to="#phone-overlays"
@@ -75,6 +89,18 @@ onBeforeUnmount(() => {
       >
         <header class="modal-header">
           <h2>{{ title }}</h2>
+          <button
+            v-if="
+              title !== 'Reset demonstracji' &&
+              title !== 'Demo jest otwarte w innej karcie'
+            "
+            class="icon-button modal-reset"
+            aria-label="Przywróć demo"
+            title="Przywróć demo"
+            @click="requestRestore"
+          >
+            <Icon name="reset" :size="18" />
+          </button>
           <button
             v-if="!locked"
             class="icon-button"

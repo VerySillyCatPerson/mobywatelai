@@ -1,4 +1,4 @@
-﻿import { defineStore } from "pinia";
+import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import type {
   World,
@@ -349,7 +349,7 @@ export const useDemo = defineStore("demo", () => {
     executing.value = true;
     await new Promise((r) => setTimeout(r, 800));
     try {
-      if (!owned()) return;
+      if (!owned() || card.epoch !== world.value.epoch) return;
       transact((w) => E.settle(w, opid, token));
       const op = world.value.operations.find((o) => o.id === opid);
       if (op?.actorId === world.value.role) {
@@ -364,8 +364,10 @@ export const useDemo = defineStore("demo", () => {
     } catch (e) {
       fail(e);
     } finally {
-      executing.value = false;
-      confirmation.value = null;
+      if (confirmation.value === card) {
+        executing.value = false;
+        confirmation.value = null;
+      }
     }
   }
   function resolve(opid: string) {
@@ -400,6 +402,10 @@ export const useDemo = defineStore("demo", () => {
   }
   function reset() {
     attempt(() => {
+      clearTimeout(saveTimer);
+      clearTimeout(toastTimer);
+      toast.value = "";
+      executing.value = false;
       const epoch = world.value.epoch + 1;
       corrupt.value = false;
       if (blocked.value) claim(true);

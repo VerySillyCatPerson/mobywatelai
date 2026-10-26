@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { t } from "../i18n";
 import type { Field } from "../domain/types";
 import Icon from "./Icon.vue";
 const props = defineProps<{
@@ -132,7 +133,7 @@ function check(value: string) {
       type="button"
       class="text-button sample"
       :disabled="disabled"
-      @click="emit('change', field.sample)"
+      @click="emit('change', t(field.sample))"
     >
       <Icon name="plus" :size="17" />{{
         field.key === "verificationCode"

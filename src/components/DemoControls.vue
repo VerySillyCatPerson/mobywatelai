@@ -1,4 +1,5 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
+import { dateLocale, t } from "../i18n";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useDemo } from "../stores/demo";
@@ -95,7 +96,7 @@ function resend(rid: string) {
       <h2>Zegar demonstracji</h2>
       <p class="clock-display">
         {{
-          new Intl.DateTimeFormat("pl-PL", {
+          new Intl.DateTimeFormat(dateLocale, {
             dateStyle: "long",
             timeStyle: "short",
             timeZone: "Europe/Warsaw",
