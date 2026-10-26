@@ -181,7 +181,7 @@ const screen = computed(() => {
       title: "Wybór sprawy",
       label: "Katalog funkcjonalności",
       description:
-        "Osiem głównych demonstracji i dodatkowy scenariusz zawieszki QR. Każda sprawa prowadzi przez przygotowanie, podsumowanie i wynik.",
+        "Dostępne demonstracje i scenariusz zawieszki QR. Każda sprawa prowadzi przez przygotowanie, podsumowanie i wynik.",
       actions: [
         "Wybierz sprawę dziecka, zwierzęcia lub właścicielki.",
         "Rozpocznij przygotowanie na danych przykładowych.",
