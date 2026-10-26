@@ -2804,6 +2804,7 @@ body {
   background: #edf0f4;
 }
 .presentation-layout {
+  position: relative;
   --phone-height: clamp(600px, calc(100dvh - 172px), 740px);
   display: grid;
   grid-template-columns: 406px minmax(0, 480px);
@@ -3132,33 +3133,48 @@ body {
 .overview-catalog[open] summary > svg {
   transform: rotate(45deg);
 }
-.overview-module {
-  display: flex;
-  gap: 14px;
-  margin: 4px 0 18px;
-  color: #59718f;
-}
-.overview-module > svg {
-  margin-top: 3px;
-}
 .overview-catalog-heading {
-  margin: 12px 0 14px;
+  margin: 16px 0 14px;
   color: #344a65;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.overview-module h4 {
-  font-size: 0.8125rem;
-  color: #344a65;
-  font-weight: 650;
+.overview-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.overview-module p {
-  font-size: 0.75rem;
-  line-height: 1.8;
+.overview-card {
+  min-width: 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #d2dce8;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px -20px #253b58;
+}
+.overview-card-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: #3f6495;
+  background: #eaf1fa;
+  border-radius: 10px;
+}
+.overview-card h4 {
+  margin: 12px 0 6px;
+  color: #23334a;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.overview-card p {
   color: #536176;
-  margin-top: 3px;
+  font-size: 0.75rem;
+  line-height: 1.6;
 }
 .overview-footnote {
   display: flex;
@@ -3259,26 +3275,13 @@ body {
 
 /* Presenter controls stay available independently of app navigation. */
 .demo-toolbar {
-  grid-column: 1/-1;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  z-index: 140;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 12px;
-  margin-bottom: -48px;
-  min-height: 44px;
-  position: sticky;
-  top: 8px;
-  z-index: 140;
-  background: #edf0f4f5;
-  padding: 4px 0;
-  border-radius: 10px;
-  backdrop-filter: blur(8px);
-}
-.demo-toolbar-label {
-  margin-right: auto;
-  font-size: 0.75rem;
-  color: #536176;
-  font-weight: 600;
 }
 .language-picker {
   display: flex;
@@ -3330,12 +3333,6 @@ body {
   order: 3;
   margin-left: 0;
 }
-.demo-toolbar + .phone-column {
-  padding-top: 44px;
-}
-.presentation-overview {
-  padding-top: 80px;
-}
 .assistant-header {
   gap: 8px;
 }
@@ -3343,25 +3340,21 @@ body {
   flex-shrink: 0;
 }
 @media (max-width: 800px) {
+  .presentation-layout { gap: 18px; }
   .demo-toolbar {
-    margin-bottom: -32px;
+    position: relative;
+    top: auto;
+    right: auto;
+    grid-column: 1;
+    justify-self: end;
+    margin-bottom: -14px;
   }
-  .demo-toolbar + .phone-column {
-    padding-top: 32px;
-  }
-  .presentation-overview {
-    padding-top: 0;
-  }
-  .demo-toolbar-label {
-    font-size: 0.6875rem;
-  }
+  .presentation-overview { padding-top: 0; }
 }
-@media (max-width: 380px) {
-  .demo-toolbar-label {
-    display: none;
-  }
-  .demo-toolbar {
-    justify-content: space-between;
-    padding-inline: 8px;
-  }
+@media (max-width: 440px) {
+  .overview-card-grid { gap: 8px; }
+  .overview-card { padding: 12px; }
+}
+@media (max-width: 340px) {
+  .overview-card-grid { grid-template-columns: 1fr; }
 }

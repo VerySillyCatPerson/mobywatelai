@@ -7,7 +7,6 @@ defineEmits<{ restore: [] }>();
 </script>
 <template>
   <div class="demo-toolbar">
-    <span class="demo-toolbar-label">Sterowanie prototypem</span>
     <div class="language-picker" role="group" aria-label="Język aplikacji">
       <button
         lang="pl"

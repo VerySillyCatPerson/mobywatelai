@@ -331,28 +331,28 @@ const supportingModules = [
         Wszystkie możliwości prototypu<Icon name="plus" :size="18" />
       </summary>
       <h3 class="overview-catalog-heading">Sprawy do przejścia</h3>
-      <div
-        v-for="module in scenarioModules"
-        :key="module.title"
-        class="overview-module"
-      >
-        <Icon :name="module.icon" :size="19" />
-        <div>
+      <div class="overview-card-grid">
+        <article
+          v-for="module in scenarioModules"
+          :key="module.title"
+          class="overview-card"
+        >
+          <span class="overview-card-icon"><Icon :name="module.icon" :size="20" /></span>
           <h4>{{ module.title }}</h4>
           <p>{{ module.text }}</p>
-        </div>
+        </article>
       </div>
       <h3 class="overview-catalog-heading">Ekrany i narzędzia</h3>
-      <div
-        v-for="module in supportingModules"
-        :key="module.title"
-        class="overview-module"
-      >
-        <Icon :name="module.icon" :size="19" />
-        <div>
+      <div class="overview-card-grid">
+        <article
+          v-for="module in supportingModules"
+          :key="module.title"
+          class="overview-card"
+        >
+          <span class="overview-card-icon"><Icon :name="module.icon" :size="20" /></span>
           <h4>{{ module.title }}</h4>
           <p>{{ module.text }}</p>
-        </div>
+        </article>
       </div>
     </details>
     <div class="overview-footnote">
