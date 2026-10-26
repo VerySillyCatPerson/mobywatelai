@@ -3141,7 +3141,15 @@ body {
 .overview-module > svg {
   margin-top: 3px;
 }
-.overview-module h3 {
+.overview-catalog-heading {
+  margin: 12px 0 14px;
+  color: #344a65;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.overview-module h4 {
   font-size: 0.8125rem;
   color: #344a65;
   font-weight: 650;

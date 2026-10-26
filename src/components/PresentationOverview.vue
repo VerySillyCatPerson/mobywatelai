@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useDemo } from "../stores/demo";
-import { flows, roles, statusLabels } from "../domain/flows";
+import { flows, flowIds, roles, statusLabels } from "../domain/flows";
 import { canRead, canContent, currentConsent } from "../domain/engine";
 import Icon from "./Icon.vue";
 const route = useRoute(),
@@ -252,26 +252,36 @@ const screen = computed(() => {
     }
   );
 });
-const modules = [
+const scenarioModules = flowIds.map((id) => ({
+  title: flows[id].name,
+  icon: flows[id].icon,
+  text:
+    id === "F06"
+      ? "Udostępnij sprawę bliskiej osobie i sprawdź status, zakres oraz termin dostępu."
+      : id === "F08"
+        ? "Przygotuj listę pytań i plan wizyty po śmierci bliskiej osoby."
+        : flows[id].description,
+}));
+const supportingModules = [
   {
-    title: "Dzieci i dokumenty",
-    icon: "users",
-    text: "Utrata dokumentu, nowy paszport i zgoda drugiego opiekuna.",
+    title: "Dokumenty i profile",
+    icon: "documents",
+    text: "Otwórz dokumenty oraz profile dzieci i zwierząt.",
   },
   {
-    title: "Zwierzęta",
-    icon: "paw",
-    text: "Mikroczip, zawieszka QR, zaginięcie i odnalezienie.",
-  },
-  {
-    title: "Pisma i pomoc bliskich",
+    title: "Sprawy i skrzynka",
     icon: "mail",
-    text: "Odpowiedź z załącznikami oraz dostęp do wybranej sprawy.",
+    text: "Sprawdź status spraw, pisma i potwierdzenia.",
   },
   {
-    title: "Ważne wydarzenia",
-    icon: "heart",
-    text: "Narodziny dziecka i przygotowanie spraw po śmierci bliskiej osoby.",
+    title: "Asystent",
+    icon: "assistant",
+    text: "Przejdź przez dostępne sprawy w rozmowie.",
+  },
+  {
+    title: "Sterowanie demonstracją",
+    icon: "settings",
+    text: "Zmień rolę, zegar lub zdarzenie; przywróć dane początkowe.",
   },
 ];
 </script>
@@ -316,18 +326,31 @@ const modules = [
         zdarzeniu w sterowaniu demonstracją.
       </p>
     </section>
-    <details class="overview-catalog">
+    <details class="overview-catalog" :open="route.path === '/'">
       <summary>
-        Co jeszcze znajdziesz w prototypie?<Icon name="plus" :size="18" />
+        Wszystkie możliwości prototypu<Icon name="plus" :size="18" />
       </summary>
+      <h3 class="overview-catalog-heading">Sprawy do przejścia</h3>
       <div
-        v-for="module in modules"
+        v-for="module in scenarioModules"
         :key="module.title"
         class="overview-module"
       >
         <Icon :name="module.icon" :size="19" />
         <div>
-          <h3>{{ module.title }}</h3>
+          <h4>{{ module.title }}</h4>
+          <p>{{ module.text }}</p>
+        </div>
+      </div>
+      <h3 class="overview-catalog-heading">Ekrany i narzędzia</h3>
+      <div
+        v-for="module in supportingModules"
+        :key="module.title"
+        class="overview-module"
+      >
+        <Icon :name="module.icon" :size="19" />
+        <div>
+          <h4>{{ module.title }}</h4>
           <p>{{ module.text }}</p>
         </div>
       </div>
